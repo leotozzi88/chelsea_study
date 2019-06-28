@@ -1,0 +1,17 @@
+for sub in sub-RAD14 sub-RAD15 sub-RAD16 sub-RAD17 sub-RAD18 sub-RAD23 sub-RAD24 sub-RAD28 sub-RAD29 sub-RAD30 sub-RAD31 sub-RAD32 sub-RAD33 sub-RAD35 sub-RAD36 sub-RAD37 sub-RAD38 sub-RAD39 sub-RAD40 sub-RAD41 sub-RAD43 sub-RAD44 sub-RAD45 sub-RAD47 sub-RAD49 sub-RAD50 sub-RAD51 sub-RAD53 sub-RAD54 sub-RAD55 sub-RAD56 sub-RAD57 sub-RAD58 sub-RAD59 sub-RAD60 sub-RAD61 sub-RAD63 sub-RAD64 sub-RAD65 sub-RAD66 sub-RAD67 sub-RAD68 sub-RAD69 sub-RAD70 sub-RAD71 sub-RAD72 sub-RAD73 sub-RAD74 sub-RAD75 sub-RAD77 sub-RAD78 sub-RAD79 sub-RAD81 sub-RAD82 sub-RAD83 sub-RAD84 sub-RAD85 sub-RAD86 sub-RAD88 sub-RAD90 sub-RAD91 sub-RAD93 sub-RAD95 sub-RAD96 sub-RAD97 sub-RAD98 sub-RAD99 sub-RAD100 sub-RAD101 sub-RAD103 sub-RAD104 sub-RAD105 sub-RAD107 sub-RAD109 sub-RAD111 sub-RAD112 sub-RAD113 sub-RAD115 sub-RAD116 sub-RAD117 sub-RAD119 sub-RAD120 sub-RAD121 sub-RAD125 sub-RAD127 sub-RAD128 sub-RAD129 sub-RAD130 sub-RAD131 sub-RAD132 sub-RAD133 sub-RAD135 sub-RAD136 sub-RAD137 sub-RAD139 sub-RAD140 sub-RAD141 sub-RAD142 sub-RAD143 sub-RAD144 sub-RAD145 sub-RAD146 sub-RAD148 sub-RAD149 sub-RAD150 sub-RAD152 sub-RAD153 sub-RAD155 sub-RAD156 sub-RAD157 sub-RAD158 sub-RAD159 sub-RAD160 sub-RAD161 sub-RAD162 sub-RAD164 sub-RAD165 sub-RAD167 sub-RAD170 sub-RAD171 sub-RAD172 sub-RAD173 sub-RAD174 sub-RAD175 sub-RAD176 sub-RAD177 sub-RAD178 sub-RAD179 sub-RAD182 sub-RAD184 sub-RAD186 sub-RAD187 sub-RAD189 sub-RAD190 sub-RAD191 sub-RAD192 sub-RAD193 sub-RAD194 sub-RAD196 sub-RAD197 sub-RAD199 sub-RAD201 sub-RAD202 sub-RAD203 sub-RAD204 sub-RAD205 sub-RAD206 sub-RAD207 sub-RAD208 sub-RAD209 sub-RAD210 sub-RAD211 sub-RAD212 sub-RAD216 sub-RAD217 sub-RAD218 sub-RAD219 sub-RAD220 sub-RAD221 sub-RAD226 sub-RAD228 sub-RAD229 sub-RAD231 sub-RAD233 sub-RAD235 sub-RAD236 sub-RAD238 sub-RAD240 sub-RAD245 sub-RAD250 sub-RAD256 sub-RAD261 sub-RAD266 sub-RAD270 sub-RAD274 sub-RAD287 sub-RAD292 sub-RAD298 sub-RAD299 sub-RAD304 sub-RAD309 sub-RAD311 sub-RAD312 sub-RAD313 sub-RAD316 sub-RAD317 sub-RAD318 sub-RAD320 sub-RAD321 sub-RAD322 sub-RAD328 sub-RAD329 sub-RAD334 sub-RAD335 sub-RAD336 sub-RAD337 sub-RAD342 sub-RAD345 sub-RAD346 sub-RAD347 sub-RAD353 sub-RAD357 sub-RAD359 sub-RAD361 sub-RAD362 sub-RAD364 sub-RAD369 sub-RAD370 sub-RAD377 sub-RAD379 sub-RAD389 sub-RAD390 sub-RAD392 sub-RAD396 sub-RAD401 sub-RAD402 sub-RAD403 sub-RAD404 sub-RAD412
+do
+for task in con cpt gng
+do
+if [ ! -f /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_${task}_ICA_AROMA_cut3/denoised_func_data_nonaggr.nii.gz ] 
+then
+echo "cutting $sub $task"
+fslroi /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_task-${task}_space-MNI152NLin2009cAsym_desc-preproc_bold_be.nii.gz /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_task-${task}_space-MNI152NLin2009cAsym_desc-preproc_bold_be_cut3.nii.gz 3 -1
+echo "running AROMA for $sub $task"
+python2.7 /Applications/ICA-AROMA-master/ICA_AROMA.py -in /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_task-${task}_space-MNI152NLin2009cAsym_desc-preproc_bold_be_cut3.nii.gz -out /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_${task}_ICA_AROMA_cut3 -mc /Users/leonardotozzi/Desktop/Server_Leo/RAD_Study_preproc/fmriprep/${sub}/func/${sub}_task-${task}_desc-only_mot_cut3.txt -overwrite
+else 
+echo "Sub $sub $task already run" 
+fi
+done
+done
+
+
